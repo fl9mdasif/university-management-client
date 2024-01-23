@@ -7,20 +7,11 @@ export const StudentPath = [
     path: "dashboard",
     element: <StudentDashboard />,
   },
+
   {
-    name: "Student Management",
-    children: [
-      {
-        name: "Offered Courses",
-        path: "offered-courses",
-        element: <OfferedCourse />,
-      },
-      {
-        name: "Update Profile",
-        path: "update-profile",
-        element: <OfferedCourse />,
-      },
-    ],
+    name: "Offered Courses",
+    path: "offered-courses",
+    element: <OfferedCourse />,
   },
 ];
 
