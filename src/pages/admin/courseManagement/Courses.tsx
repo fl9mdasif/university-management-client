@@ -35,7 +35,7 @@ const Courses = () => {
     {
       title: "Action",
       key: "x",
-      render: (item) => {
+      render: (item: any) => {
         return <AddFacultyModal facultyInfo={item} />;
       },
     },
