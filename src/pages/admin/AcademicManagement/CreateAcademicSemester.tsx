@@ -7,12 +7,17 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { monthOptions } from "../../../constant/global";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { academicSemesterSchema } from "../../../schemas/academicManagement.schema";
-import { useAddAcademicSemesterMutation } from "../../../redux/features/admin/academicSemesterApi";
+import {
+  useAddAcademicSemesterMutation,
+  useGetAllSemestersQuery,
+} from "../../../redux/features/admin/academicSemesterApi";
 import { TResponse } from "../../../types/global";
+import { TAcademicSemester } from "../../../types/academicManagement.type";
 
 const CreateAcademicSemester = () => {
   //
   const [addAcademicSemester] = useAddAcademicSemesterMutation();
+  const { refetch } = useGetAllSemestersQuery(undefined);
   //
 
   const currentYear = new Date().getFullYear();
@@ -34,15 +39,18 @@ const CreateAcademicSemester = () => {
       endMonth: data.endMonth,
     };
 
-    console.log("sem", semesterData);
+    // console.log("sem", semesterData);
 
     try {
-      const res = (await addAcademicSemester(semesterData)) as TResponse;
-      console.log(res);
+      const res = (await addAcademicSemester(
+        semesterData
+      )) as TResponse<TAcademicSemester>;
+      // console.log(res);
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {
         toast.success("Semester created", { id: toastId });
+        refetch();
       }
     } catch (err) {
       toast.error("Something went wrong", { id: toastId });
