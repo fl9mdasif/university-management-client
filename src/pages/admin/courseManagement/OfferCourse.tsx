@@ -43,12 +43,11 @@ const OfferCourse = () => {
 
   const { data: facultiesData, isFetching: fetchingFaculties } =
     useGetCourseFacultiesQuery(courseId, { skip: !courseId });
-  // console.log(facultiesData);
 
   const semesterRegistrationOptions = semesterRegistrationData?.data?.map(
     (item) => ({
       value: item._id,
-      label: `${item?.academicSemester?.name} ${item?.academicSemester?.year}`,
+      label: `${item.academicSemester.name} ${item.academicSemester.year}`,
     })
   );
 
@@ -75,6 +74,8 @@ const OfferCourse = () => {
   }));
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Creating...");
+
     const offeredCourseData = {
       ...data,
       maxCapacity: Number(data.maxCapacity),
@@ -83,16 +84,16 @@ const OfferCourse = () => {
       endTime: moment(new Date(data.endTime)).format("HH:mm"),
     };
 
-    const res = (await addOfferedCourse(offeredCourseData)) as TResponse<any>;
-
     try {
-      if (!res?.data?.success) {
-        toast.error("Something went wrong");
+      const res = (await addOfferedCourse(offeredCourseData)) as TResponse<any>;
+      // console.log(res);
+      if (res.error) {
+        toast.error(res.error.data.message, { id: toastId });
       } else {
-        toast.error("Offered course created successfully");
+        toast.success("offered courses created", { id: toastId });
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
     }
   };
 

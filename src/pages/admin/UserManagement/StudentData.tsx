@@ -28,7 +28,7 @@ const StudentData = () => {
     isLoading,
     isFetching,
   } = useGetAllStudentsQuery([
-    { name: "limit", value: 2 },
+    { name: "limit", value: 4 },
     { name: "page", value: page },
     { name: "sort", value: "id" },
     ...params,
@@ -39,7 +39,7 @@ const StudentData = () => {
   const metaData = studentData?.data?.meta;
   // console.log("m", metaData);
 
-  const tableData = studentData?.data?.result?.map(
+  const tableData: any = studentData?.data?.result?.map(
     ({ _id, fullName, id, email, contactNo }: any) => ({
       key: _id,
       fullName,

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TAcademicSemester } from "../../../types/academicManagement.type";
-import { TCourse } from "../../../types/courseManagement.type";
+import { TCourse, TSemester } from "../../../types/courseManagement.type";
 import { TQueryParam, TResponseRedux } from "../../../types/global";
 import { baseApi } from "../../api/baseApi";
 
@@ -23,13 +22,14 @@ const courseManagementApi = baseApi.injectEndpoints({
         };
       },
       providesTags: ["semester"],
-      transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
+      transformResponse: (response: TResponseRedux<TSemester[]>) => {
         return {
           data: response.data,
           meta: response.meta,
         };
       },
     }),
+
     addRegisteredSemester: builder.mutation({
       query: (data) => ({
         url: "/semesterRegistration/create-semester-registration",
@@ -38,6 +38,7 @@ const courseManagementApi = baseApi.injectEndpoints({
       }),
       // invalidatesTags: ['semester'],
     }),
+
     updateRegisteredSemester: builder.mutation({
       query: (args) => ({
         url: `/semesterRegistration/${args.id}`,
@@ -46,6 +47,7 @@ const courseManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["semester"],
     }),
+
     getAllCourses: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -70,6 +72,7 @@ const courseManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+
     addCourse: builder.mutation({
       query: (data) => ({
         url: `/courses/create-course`,
@@ -78,6 +81,7 @@ const courseManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["courses"],
     }),
+
     addFaculties: builder.mutation({
       query: (args) => ({
         url: `/courses/${args.courseId}/assign-faculties`,
@@ -86,6 +90,7 @@ const courseManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["courses"],
     }),
+
     getCourseFaculties: builder.query({
       query: (id) => {
         return {
@@ -100,6 +105,7 @@ const courseManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+
     createOfferedCourse: builder.mutation({
       query: (data) => ({
         url: `offered-courses/create-offered-course`,
