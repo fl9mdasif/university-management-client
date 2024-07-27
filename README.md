@@ -3,8 +3,7 @@
 ## Overview
 The PH University Management System (UMS) is a comprehensive full-stack application designed to facilitate efficient management of university operations. It provides robust functionalities for students, faculty, and administrators, covering a wide range of academic and administrative tasks. The primary goal of UMS is to streamline university processes, enhance data security, and ensure role-based access control for different user types.
 
-## Server Code Link
-Check out the live version of the project [here](#).
+## [Server Code Link](https://github.com/fl9mdasif/university-management-system-ts-mongoose)
 
 ## Features
 
